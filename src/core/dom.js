@@ -1,26 +1,26 @@
 class Dom {
   constructor(selector) {
-    this.nativeElement = typeof selector === 'string'
-      ? document.querySelector(selector)
+    this.$el = typeof selector === 'string'
+      ? document.querySelector(selector) // div #app
       : selector;
   }
 
   html(html) {
     if (typeof html === 'string') {
-      this.nativeElement.innerHTML = html;
+      this.$el.innerHTML = html;
       return this;
     }
-    return this.nativeElement.outerHTML.trim();
+    return this.$el.outerHTML.trim();
   }
 
   append(node) {
     if (node instanceof Dom) {
-      node = node.nativeElement;
+      node = node.$el;
     }
     if (Element.prototype.append) {
-      this.nativeElement.append(node);
+      this.$el.append(node);
     } else {
-      this.nativeElement.appendChild(node);
+      this.$el.appendChild(node);
     }
     return this;
   }
