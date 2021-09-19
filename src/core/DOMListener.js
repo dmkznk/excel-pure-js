@@ -18,7 +18,7 @@ export class DOMListener {
         );
       }
       this[method] = this[method].bind(this);
-      this.$root.on(listener, this[method]); // onInput
+      this.$root.on(listener, this[method]);
     });
   }
 
