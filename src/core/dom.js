@@ -25,6 +25,14 @@ class Dom {
     return this;
   }
 
+  closest(selector) {
+    return _(this.$el.closest(selector));
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect();
+  }
+
   clear() {
     this.html('');
     return this;
