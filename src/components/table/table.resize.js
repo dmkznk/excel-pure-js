@@ -1,6 +1,5 @@
 import {_} from '@core/dom';
 
-
 export function tableResizeHandler($root, event) {
   const $resizer = _(event.target);
   const type = $resizer.data.resize;
