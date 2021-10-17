@@ -46,8 +46,20 @@ class Dom {
     return this.$el.querySelectorAll(selector);
   }
 
+  find(selector) {
+    return _(this.$el.querySelector(selector));
+  }
+
   css(styles = {}) {
     Object.keys(styles).forEach(key => this.$el.style[key] = styles[key]);
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
   }
 
   on(eventType, callback) {
