@@ -25,9 +25,29 @@ class Dom {
     return this;
   }
 
+  closest(selector) {
+    return _(this.$el.closest(selector));
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect();
+  }
+
   clear() {
     this.html('');
     return this;
+  }
+
+  get data() {
+    return this.$el.dataset;
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector);
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach(key => this.$el.style[key] = styles[key]);
   }
 
   on(eventType, callback) {
