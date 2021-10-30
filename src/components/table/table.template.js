@@ -31,7 +31,13 @@ function toColumn(col, index) {
 function toCell(row) {
   return function(_, col) {
     return `
-      <div class="cell" data-col="${col}" data-id="${row}:${col}" contenteditable></div>
+      <div 
+       class="cell"
+       data-col="${col}"
+       data-id="${row}:${col}"
+       data-type="cell"
+       contenteditable>
+    </div>
     `;
   };
 }

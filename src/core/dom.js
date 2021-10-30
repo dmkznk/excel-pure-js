@@ -42,6 +42,18 @@ class Dom {
     return this.$el.dataset;
   }
 
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: Number(parsed[0]),
+        col: Number(parsed[1])
+      };
+    } else {
+      return this.data.id;
+    }
+  }
+
   findAll(selector) {
     return this.$el.querySelectorAll(selector);
   }
