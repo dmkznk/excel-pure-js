@@ -54,6 +54,11 @@ class Dom {
     }
   }
 
+  focus() {
+    this.$el.focus();
+    return this;
+  }
+
   findAll(selector) {
     return this.$el.querySelectorAll(selector);
   }
@@ -68,18 +73,22 @@ class Dom {
 
   addClass(className) {
     this.$el.classList.add(className);
+    return this;
   }
 
   removeClass(className) {
     this.$el.classList.remove(className);
+    return this;
   }
 
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback);
+    return this;
   }
 
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback);
+    return this;
   }
 }
 

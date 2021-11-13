@@ -1,4 +1,3 @@
-import {range} from '@/components/table/table.functions';
 
 export class TableSelection {
   static className = 'selected';
@@ -12,7 +11,8 @@ export class TableSelection {
   select($el) {
     this.clear();
     this.group.push($el);
-    $el.addClass(TableSelection.className);
+    $el.addClass(TableSelection.className)
+        .focus();
     this.current = $el;
   }
 
