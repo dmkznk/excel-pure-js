@@ -8,9 +8,11 @@ import {_} from '@core/dom';
 export class Table extends ExcelComponent {
   static className = 'excel__table';
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
-      listeners: ['mousedown', 'keydown']
+      name: 'Table',
+      listeners: ['mousedown', 'keydown'],
+      ...options
     });
   }
 
@@ -27,6 +29,10 @@ export class Table extends ExcelComponent {
 
     const $sell = this.$root.find('[data-id="0:0"]');
     this.Selection.select($sell);
+
+    this.$subscribe('formula:input', formulaInputText => {
+      this.Selection.current.text(formulaInputText);
+    });
   }
 
   onMousedown(event) {

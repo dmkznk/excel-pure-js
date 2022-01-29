@@ -13,6 +13,10 @@ class Dom {
     return this.$el.outerHTML.trim();
   }
 
+  text(text) {
+    this.$el.textContent = text;
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.$el;
