@@ -27,8 +27,8 @@ export class Table extends ExcelComponent {
   init() {
     super.init();
 
-    const $sell = this.$root.find('[data-id="0:0"]');
-    this.Selection.select($sell);
+    const $cell = this.$root.find('[data-id="0:0"]');
+    this.Selection.select($cell);
 
     this.$subscribe('formula:input', formulaInputText => {
       this.Selection.current.text(formulaInputText);
