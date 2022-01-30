@@ -10,12 +10,3 @@ const excel = new Excel('#app', {
 });
 
 excel.render();
-
-const xml = new XMLHttpRequest();
-xml.open('GET', 'https://jsonplaceholder.typicode.com/users');
-xml.responseType = 'json';
-xml.onload = () => {
-  console.log(xml.response);
-};
-
-xml.send();

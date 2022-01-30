@@ -13,6 +13,17 @@ class Dom {
     return this.$el.outerHTML.trim();
   }
 
+  text(text) {
+    if (typeof text === 'string') {
+      this.$el.textContent = text;
+      return this;
+    }
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim();
+    }
+    return this.$el.textContent.trim();
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.$el;
@@ -42,20 +53,53 @@ class Dom {
     return this.$el.dataset;
   }
 
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: Number(parsed[0]),
+        col: Number(parsed[1])
+      };
+    } else {
+      return this.data.id;
+    }
+  }
+
+  focus() {
+    this.$el.focus();
+    return this;
+  }
+
   findAll(selector) {
     return this.$el.querySelectorAll(selector);
+  }
+
+  find(selector) {
+    return _(this.$el.querySelector(selector));
   }
 
   css(styles = {}) {
     Object.keys(styles).forEach(key => this.$el.style[key] = styles[key]);
   }
 
+  addClass(className) {
+    this.$el.classList.add(className);
+    return this;
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+    return this;
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback);
+    return this;
   }
 
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback);
+    return this;
   }
 }
 
