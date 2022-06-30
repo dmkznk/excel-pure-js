@@ -37,11 +37,16 @@ export class Table extends ExcelComponent {
     this.$subscribe('formula:done', () => {
       this.Selection.current.focus();
     });
+
+    this.$on(state => {
+      console.log('tableState', state);
+    });
   }
 
   selectCell($cell) {
     this.Selection.select($cell);
     this.$emit('table:select', $cell);
+    this.$dispatch({type: 'TEST'});
   }
 
   onMousedown(event) {
@@ -54,7 +59,7 @@ export class Table extends ExcelComponent {
             .map(id => this.$root.find(`[data-id="${id}"]`));
         this.Selection.selectGroup($cells);
       } else {
-        this.Selection.select($target);
+        this.selectCell($target);
       }
     }
   }
