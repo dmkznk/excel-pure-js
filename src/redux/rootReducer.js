@@ -1,3 +1,12 @@
+import {TABLE_RESIZE} from '@/redux/types';
+
 export function rootReducer(state, action) {
-  return state;
+  let colState;
+  switch (action.type) {
+    case TABLE_RESIZE:
+      colState = state.colState || {};
+      colState[action.data.id] = action.data.value;
+      return {...state, colState};
+    default: return state;
+  }
 }

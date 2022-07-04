@@ -1,37 +1,46 @@
 import {_} from '@core/dom';
 
 export function tableResizeHandler($root, event) {
-  const $resizer = _(event.target);
-  const type = $resizer.data.resize;
-  const sideProp = type === 'col' ? 'bottom' : 'right';
-  const $parent = $resizer.closest('[data-type="resizable"]');
-  const coords = $parent.getCoords();
-  let delta;
+  return new Promise(resolve => {
+    const $resizer = _(event.target);
+    const type = $resizer.data.resize;
+    const sideProp = type === 'col' ? 'bottom' : 'right';
+    const $parent = $resizer.closest('[data-type="resizable"]');
+    const coords = $parent.getCoords();
+    let value;
 
-  $resizer.css({opacity: 1, zIndex: 99, [sideProp]: '-5000px'});
+    $resizer.css({opacity: 1, zIndex: 99, [sideProp]: '-5000px'});
 
-  document.onmousemove = e => {
-    if (type === 'col') {
-      delta = e.pageX - coords.right;
-      $resizer.css({right: -delta + 'px'});
-    } else {
-      delta = e.pageY - coords.bottom;
-      $resizer.css({bottom: -delta + 'px'});
-    }
-  };
+    document.onmousemove = e => {
+      if (type === 'col') {
+        const delta = e.pageX - coords.right;
+        value = coords.width + delta;
+        $resizer.css({right: -delta + 'px'});
+      } else {
+        const delta = e.pageY - coords.bottom;
+        value = coords.height + delta;
+        $resizer.css({bottom: -delta + 'px'});
+      }
+    };
 
-  document.onmouseup = () => {
-    document.onmousemove = null;
-    document.onmouseup = null;
+    document.onmouseup = () => {
+      document.onmousemove = null;
+      document.onmouseup = null;
 
-    if (type === 'col') {
-      $parent.css({width: coords.right + delta + 'px'});
-      $root.findAll(`[data-col="${$parent.data.col}"]`)
-          .forEach(el => el.style.width = (coords.width + delta) + 'px');
-    } else {
-      $parent.css({height: coords.height + delta + 'px'});
-    }
+      if (type === 'col') {
+        $parent.css({width: value + 'px'});
+        $root.findAll(`[data-col="${$parent.data.col}"]`)
+            .forEach(el => el.style.width = value + 'px');
+      } else {
+        $parent.css({height: value + 'px'});
+      }
 
-    $resizer.css({opacity: 0, bottom: 0, right: 0});
-  };
+      resolve({
+        value,
+        id: type === 'col' ? $parent.data.col : null
+      });
+
+      $resizer.css({opacity: 0, bottom: 0, right: 0});
+    };
+  });
 }
