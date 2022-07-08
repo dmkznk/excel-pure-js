@@ -87,6 +87,13 @@ class Dom {
     return this;
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, style) => {
+      res[style] = this.$el.style[style];
+      return res;
+    }, {});
+  }
+
   removeClass(className) {
     this.$el.classList.remove(className);
     return this;

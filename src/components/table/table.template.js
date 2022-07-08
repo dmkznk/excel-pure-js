@@ -1,8 +1,4 @@
-const CODES = {
-  A: 65,
-  Z: 90
-};
-
+const CODES = {A: 65, Z: 90};
 const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 24;
 
