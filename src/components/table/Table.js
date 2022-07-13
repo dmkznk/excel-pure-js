@@ -6,6 +6,7 @@ import {TableSelection} from './TableSelection';
 import {_} from '@core/dom';
 import * as actions from '@/redux/actions';
 import {defaultStyles} from '@/constants';
+import {parse} from '@core/parse';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -33,7 +34,7 @@ export class Table extends ExcelComponent {
     this.selectCell($cell);
 
     this.$subscribe('formula:input', formulaInputText => {
-      this.Selection.current.text(formulaInputText);
+      this.setCellDataValueAttribute(formulaInputText);
       this.updateTextInStore(formulaInputText);
     });
 
@@ -53,9 +54,7 @@ export class Table extends ExcelComponent {
   selectCell($cell) {
     this.Selection.select($cell);
     this.$emit('table:select', $cell);
-    this.$dispatch({type: 'TEST'});
     const styles = $cell.getStyles(Object.keys(defaultStyles));
-    console.log(styles);
     this.$dispatch(actions.changeStyles(styles));
   }
 
@@ -102,6 +101,14 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    this.updateTextInStore(_(event.target).text());
+    const cellText = _(event.target).text();
+    this.setCellDataValueAttribute(cellText);
+    this.updateTextInStore(cellText);
+  }
+
+  setCellDataValueAttribute(value) {
+    this.Selection.current
+        .attribute('data-value', value)
+        .text(parse(value));
   }
 }

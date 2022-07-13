@@ -14,7 +14,7 @@ class Dom {
   }
 
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== undefined) {
       this.$el.textContent = text;
       return this;
     }
@@ -108,8 +108,16 @@ class Dom {
     this.$el.removeEventListener(eventType, callback);
     return this;
   }
-}
 
+  attribute(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value);
+      return this;
+    } else {
+      return this.$el.getAttribute(name);
+    }
+  }
+}
 
 export function _(selector) {
   return new Dom(selector);
