@@ -110,7 +110,7 @@ class Dom {
   }
 
   attribute(name, value) {
-    if (value) {
+    if (typeof value === 'string') {
       this.$el.setAttribute(name, value);
       return this;
     } else {
