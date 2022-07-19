@@ -101,7 +101,6 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    console.log(event.target);
     const cellText = _(event.target).text();
     this.setCellDataValueAttribute(cellText);
     this.updateTextInStore(cellText);
