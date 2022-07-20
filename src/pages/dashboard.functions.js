@@ -1,9 +1,16 @@
-function toHTML() {
-  return `
-   <li class="db__record">
-      <a href="#">Table #1</a>
-      <strong>13.06.2021</strong>
-  </li>`;
+import {storage} from '@core/utils';
+
+function toHTML(key) {
+  const tableState = storage(key);
+  const tableId = key.split(':')[1];
+
+  return `<li class="db__record">
+            <a href="#excel/${tableId}">${tableState.titleState}</a>
+            <strong>
+              ${ new Date(tableState.openedDate).toLocaleDateString() }
+              ${ new Date(tableState.openedDate).toLocaleTimeString() }
+            </strong>
+          </li>`;
 }
 
 function getAllExcelLocalStorageKeys() {
@@ -16,7 +23,7 @@ export function createRecordsTable() {
     ? `<p>You haven't created any records yet</p>`
     : `<div class="db__list-header">
           <span>Name</span>
-          <span>Created</span>
+          <span>Last Opened</span>
        </div>
        <ul class="db__list">
           ${ keys.map(toHTML).join('') }

@@ -1,6 +1,7 @@
 import {_} from '@core/dom';
 import {Emitter} from '@core/Emitter';
 import {StoreSubscriber} from '@core/StoreSubscriber';
+import {updateDate} from '@/redux/actions';
 
 export class Excel {
   constructor(options) {
@@ -30,6 +31,10 @@ export class Excel {
   }
 
   init() {
+    if (process.env.NODE_ENV === 'production') {
+      document.addEventListener('contextmenu', e => e.preventDefault());
+    }
+    this.store.dispatch(updateDate());
     this.storeSubscriber.subscribeComponents(this.components);
     this.components.forEach(Component => Component.init());
   }
@@ -37,5 +42,6 @@ export class Excel {
   destroy() {
     this.storeSubscriber.unsubscribeFromStore();
     this.components.forEach(Component => Component.destroy());
+    document.removeEventListener('contextmenu', e => e.preventDefault());
   }
 }

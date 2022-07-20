@@ -2,6 +2,7 @@ import {ExcelComponent} from '@core/ExcelComponent';
 import {_} from '@core/dom';
 import * as actions from '@/redux/actions';
 import {createHeader} from '@/components/header/header.template';
+import {ActiveRoute} from '@core/routes/ActiveRoute';
 
 export class Header extends ExcelComponent {
   static className = 'excel__header';
@@ -9,7 +10,7 @@ export class Header extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: 'Header',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
       ...options
     });
   }
@@ -20,6 +21,19 @@ export class Header extends ExcelComponent {
 
   onInput(event) {
     this.updateTitleInStore(_(event.target).text());
+  }
+
+  onClick(event) {
+    const $target = _(event.target);
+
+    if ($target.data.button === 'remove') {
+      if (confirm('Are you sure that you want to delete this table?')) {
+        localStorage.removeItem('excel:' + ActiveRoute.param);
+        ActiveRoute.navigate('');
+      }
+    } else if ($target.data.button === 'exit') {
+      ActiveRoute.navigate('');
+    }
   }
 
   updateTitleInStore(value) {
