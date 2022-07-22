@@ -1,4 +1,4 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {ExcelComponent} from '@/components/excel/ExcelComponent';
 import {_} from '@core/dom';
 import * as actions from '@/redux/actions';
 import {createHeader} from '@/components/header/header.template';

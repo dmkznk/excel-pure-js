@@ -3,7 +3,7 @@ import {createStore} from '@core/createStore';
 import {rootReducer} from '@/redux/rootReducer';
 import {debounce, storage} from '@core/utils';
 import {normalizeInitialState} from '@/redux/initialState';
-import {Excel} from '@/components/excel/Excel';
+import {Excel} from '@core/Excel';
 import {Header} from '@/components/header/Header';
 import {Toolbar} from '@/components/toolbar/Toolbar';
 import {Formula} from '@/components/formula/Formula';

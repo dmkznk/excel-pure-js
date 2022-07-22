@@ -1,4 +1,4 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {ExcelComponent} from '@/components/excel/ExcelComponent';
 import {createTable} from '@/components/table/table.template';
 import {tableResizeHandler} from './table.resize';
 import {isCell, matrix, nextSelector, shouldResize} from './table.functions';
